@@ -8,5 +8,13 @@
             "email": "vector.kerr@gmail.com"
         }
     ],
-    "require": {}
+	"autoload": {
+		"psr-4": {
+			"Vector88\\": "src/Vector88/"
+		}
+	},
+    "require": {
+		"php": "^5.3.3 || ^7.0",
+		"illuminate/support": "5.*"
+	}
 }
