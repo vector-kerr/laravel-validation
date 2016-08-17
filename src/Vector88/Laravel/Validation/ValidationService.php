@@ -26,7 +26,7 @@ class ValidationService {
 	 *
 	 * @return ValidationServiceContract
 	 */
-	public function for( $serviceKey, $data ) {
+	public function provide( $serviceKey, $data ) {
 		return $this->services[ $serviceKey ]->setData( $data );
 	}
 	
