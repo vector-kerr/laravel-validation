@@ -27,7 +27,7 @@ class ValidationData {
 		return $this;
 	}
 	
-	public function required( $value ) {
+	public function required() {
 		return $this->_set( 'required' );
 	}
 	
@@ -48,7 +48,7 @@ class ValidationData {
 	}
 	
 	public function string() {
-		return $this->set( 'string' );
+		return $this->_set( 'string' );
 	}
 	
 	public function str() {
