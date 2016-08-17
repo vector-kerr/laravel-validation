@@ -22,6 +22,17 @@ class ValidationData {
 		return $this;
 	}
 	
+	/**
+	 * Retrieve a concrete validation service contract using this set of validation rules
+	 *
+	 * @serviceKey string The type of validation service to retrieve for the given data
+	 *
+	 * @return ValidationServiceContract
+	 */
+	public function for( $serviceKey ) {
+		return $this->validationService->for( $serviceKey, $this );
+	}
+	
 	protected function _set( $key, $value = true ) {
 		$this->rules[ $this->field ][ $key ] = $value;
 		return $this;
@@ -54,4 +65,17 @@ class ValidationData {
 	public function str() {
 		return $this->string();
 	}
+	
+	public function email() {
+		return $this->_set( 'email' );
+	}
+	
+	public function unique( $table ) {
+		return $this->_set( 'unique', $table );
+	}
+	
+	public function confirmed() {
+		return $this->_set( 'confirmed' );
+	}
+	
 }
