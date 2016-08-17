@@ -1,0 +1,12 @@
+{
+    "name": "vector88/laravel-validation",
+    "description": "Validation Utilities for Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Kerr",
+            "email": "vector.kerr@gmail.com"
+        }
+    ],
+    "require": {}
+}
