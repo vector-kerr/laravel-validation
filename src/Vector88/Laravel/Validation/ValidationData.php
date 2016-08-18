@@ -55,7 +55,9 @@ class ValidationData implements \ArrayAccess, \IteratorAggregate {
 	// BEGIN IteratorAggregate IMPLEMENTATION
 	
 	public function getIterator() {
-		return new ArrayIterator( clone $this->rules );
+		// Implicit clone
+		$rules = $this->rules;
+		return new \ArrayIterator( $rules );
 	}
 	
 	// END IteratorAggregate IMPLEMENTATION
