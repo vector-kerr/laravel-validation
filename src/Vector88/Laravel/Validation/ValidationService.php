@@ -30,4 +30,13 @@ class ValidationService {
 		return $this->services[ $serviceKey ]->setData( $data );
 	}
 	
+	/**
+	 * Shorthand to retrieve a Laravel Validator-compatible rule set
+	 *
+	 * @return Array An array of rules that can be used with Validator::make( $data, $rules );
+	 */
+	public function rules( $data ) {
+		return $this->provide( 'laravel', $data )->allAttributes();
+	}
+	
 }

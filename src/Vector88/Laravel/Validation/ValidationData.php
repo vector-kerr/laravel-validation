@@ -73,6 +73,10 @@ class ValidationData implements \ArrayAccess, \IteratorAggregate {
 		return $this->validationService->provide( $serviceKey, $this );
 	}
 	
+	public function rules() {
+		return $this->validationService->rules( $this );
+	}
+	
 	protected function _set( $key, $value = null ) {
 		$this->rules[ $this->field ][ $key ] = $value;
 		return $this;
