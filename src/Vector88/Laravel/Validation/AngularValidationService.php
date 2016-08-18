@@ -17,6 +17,23 @@ class AngularValidationService implements ValidationServiceContract {
 		return $this;
 	}
 	
+	public function allAttributes() {
+		$attributes = [];
+		foreach( $this->data as $field => $unusedValue ) {
+			$attributes[ $field ] = $this->attributes( $field );
+		}
+		return $attributes;
+	}
+	
+	public function attributes( $field ) {
+		$attributes = $this->rawAttributes( $field );
+		$parts = [];
+		foreach( $attributes as $k => $v ) {
+			$parts[] = $k . ( null === $v ? "" : "=\"{$v}\"" );
+		}
+		return implode( " ", $parts );
+	}
+	
 	public function rawAttributes( $field ) {
 		$this->currentFieldRules = $this->data[ $field ];
 		$this->currentFieldAttributes = [];
@@ -29,15 +46,6 @@ class AngularValidationService implements ValidationServiceContract {
 			->add( 'regex', 'ng-pattern', "{{value}}" );
 		
 		return $this->currentFieldAttributes;
-	}
-	
-	public function attributes( $field ) {
-		$attributes = $this->rawAttributes( $field );
-		$parts = [];
-		foreach( $attributes as $k => $v ) {
-			$parts[] = $k . ( null === $v ? "" : "=\"{$v}\"" );
-		}
-		return implode( " ", $parts );
 	}
 	
 	protected function add( $rule, $attributeKey, $attributeValue = null ) {
