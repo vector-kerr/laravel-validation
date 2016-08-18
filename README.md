@@ -8,7 +8,7 @@ The utilities are intended to be generic and expandable, allowing the validation
 Add the package using the composer command line interface:
 
 ```
-composer install vector88/laravel-validation
+composer require vector88/laravel-validation
 ```
 
 
