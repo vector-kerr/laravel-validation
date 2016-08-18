@@ -15,6 +15,14 @@ class LaravelValidationService implements ValidationServiceContract {
 		return $this;
 	}
 	
+	public function makeValidatorRules() {
+		$attributes = [];
+		foreach( $this->data as $field => $unusedValue ) {
+			$attributes[ $field ] = $this->attributes( $field );
+		}
+		return $attributes;
+	}
+	
 	public function attributes( $field ) {
 		$fieldRules = $this->data[ $field ];
 		
