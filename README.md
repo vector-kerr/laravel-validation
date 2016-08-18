@@ -36,6 +36,63 @@ Add the service provider to `config/app.php`:
 ```
 
 
-## Usage
+## Example
+
+`App/Http/routes.php`
+```
+Route::get('/laravel', 'ValidationController@laravel' );
+Route::get('/angular', 'ValidationController@angular' );
+Route::get('/validator', 'ValidationController@validator' );
+```
 
 
+
+`App/Http/Controllers/ValidationController.php`
+``` php
+<?php
+
+namespace App\Http\Controllers;
+
+use Validator;
+use Validation;
+
+class ValidationController extends Controller
+{
+	
+	protected $validation;
+	
+	public function __construct() {
+		$this->validation =
+			Validation::make()
+				->field( 'name' )
+					->isRequired()
+					->isString()
+					->hasMin( 4 )
+					->hasMax( 16 )
+				->field( 'age' )
+					->isInteger()
+					->hasMin( 0 )
+					->hasMax( 120 );
+	}
+	
+	public function angular() {
+		return $this->validation
+			->provide( 'angular' )
+			->allAttributes();
+	}
+	
+	public function laravel() {
+		return $this->validation
+			->provide( 'laravel' )
+			->allAttributes();
+	}
+	
+	public function validator() {
+        $validator = Validator::make(
+			[ 'name' => 'Jon', 'age' => 148.7 ],
+			$this->validation->rules() );
+		
+		return $validator->errors();
+	}
+}
+```
