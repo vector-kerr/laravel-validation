@@ -115,10 +115,10 @@ class LaravelValidationService implements ValidationServiceContract {
 			
 			$value = $unique[ 'table' ];
 			
-			if( null !== ( $unique[ 'column' ] ) {
+			if( null !== $unique[ 'column' ] ) {
 				$value .= "," . $unique[ 'column' ];
 				
-				if( null !== ( $unique[ 'except' ] ) || null !== ( $unique[ 'id_column' ] ) ) {
+				if( null !== $unique[ 'except' ] || null !== $unique[ 'id_column' ] ) {
 					$value .= "," . $unique[ 'column' ];
 					$value .= "," . $unique[ 'id_column' ];
 					
