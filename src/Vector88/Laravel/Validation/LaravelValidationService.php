@@ -113,14 +113,19 @@ class LaravelValidationService implements ValidationServiceContract {
 		if( array_key_exists( 'unique', $fieldRules ) ) {
 			$unique = $fieldRules[ 'unique' ];
 			
-			$value = $unique[ 'table' ] . "," .
-				$unique[ 'column' ] . "," .
-				$unique[ 'except' ] . "," .
-				( null === $unique[ 'id_column' ] ? $field : $unique[ 'id_column' ] );
+			$value = $unique[ 'table' ];
 			
-			if( null !== $unique[ 'where_key' ] ) {
-				$value .= "," . $unique[ 'where_key' ] . "," . $unique[ 'where_value' ];
-			}
+			if( null !== ( $unique[ 'column' ] ) {
+				$value .= "," . $unique[ 'column' ];
+				
+				if( null !== ( $unique[ 'except' ] ) || null !== ( $unique[ 'id_column' ] ) ) {
+					$value .= "," . $unique[ 'column' ];
+					$value .= "," . $unique[ 'id_column' ];
+					
+					if( null !== $unique[ 'where_key' ] ) {
+						$value .= "," . $unique[ 'where_key' ] . "," . $unique[ 'where_value' ];
+					}
+				}
 			
 			$parts[ 'unique' ] = $value;
 		}

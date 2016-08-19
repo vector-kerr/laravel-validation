@@ -291,7 +291,7 @@ class ValidationData implements \ArrayAccess, \IteratorAggregate {
 		return $this->_set( 'timezone' );
 	}
 	
-	public function isUnique( $table, $column, $except = null, $idColumn = null, $whereKey = null, $whereValue = null ) {
+	public function isUnique( $table, $column = null, $except = null, $idColumn = null, $whereKey = null, $whereValue = null ) {
 		return $this->_set( 'unique', [
 			'table' => $table,
 			'column' => $column,
