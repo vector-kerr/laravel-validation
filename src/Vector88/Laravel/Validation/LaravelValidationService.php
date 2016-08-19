@@ -28,19 +28,19 @@ class LaravelValidationService implements ValidationServiceContract {
 		
 		$parts = [];
 		foreach( $fieldRules as $rule => $value ) {
-			$parts[ $rule ] = $rule . ( ( null === $value && !is_array( $value ) ) ? "" : ":{$value}" );
+			$parts[ $rule ] = $rule . ( ( null === $value || is_array( $value ) ) ? "" : ":{$value}" );
 		}
 		
 		// Handle specific cases
 		
 		if( array_key_exists( 'between', $fieldRules ) ) {
 			$between = $fieldRules[ 'between' ];
-			$parts[ 'between' ] = $between[ 'min' ] . "," . $between[ 'max' ];
+			$parts[ 'between' ] = 'between:' . $between[ 'min' ] . "," . $between[ 'max' ];
 		}
 		
 		if( array_key_exists( 'digits_between', $fieldRules ) ) {
 			$digitsBetween = $fieldRules[ 'digits_between' ];
-			$parts[ 'digits_between' ] = $digitsBetween[ 'min' ] . "," . $digitsBetween[ 'max' ];
+			$parts[ 'digits_between' ] = 'digits_between:' . $digitsBetween[ 'min' ] . "," . $digitsBetween[ 'max' ];
 		}
 		
 		if( array_key_exists( 'dimensions', $fieldRules ) ) {
@@ -67,47 +67,47 @@ class LaravelValidationService implements ValidationServiceContract {
 			if( isset( $dimensions[ 'ratio' ] ) ) {
 				$values[] = 'ratio=' . $dimensions[ 'ratio' ];
 			}
-			$parts[ 'dimensions' ] = implode( ",", $values );
+			$parts[ 'dimensions' ] = 'dimensions:' . implode( ",", $values );
 		}
 		
 		if( array_key_exists( 'exists', $fieldRules ) ) {
 			$exists = $fieldRules[ 'exists' ];
-			$parts[ 'exists' ] = $exists[ 'table' ] . "," . $exists[ 'column' ];
+			$parts[ 'exists' ] = 'exists:' . $exists[ 'table' ] . "," . $exists[ 'column' ];
 		}
 		
 		if( array_key_exists( 'in', $fieldRules ) ) {
 			$in = $fieldRules[ 'in' ];
-			$parts[ 'in' ] = implode( ",", $in );
+			$parts[ 'in' ] = 'in:' . implode( ",", $in );
 		}
 		
 		if( array_key_exists( 'mimetypes', $fieldRules ) ) {
 			$mimetypes = $fieldRules[ 'mimetypes' ];
-			$parts[ 'mimetypes' ] = implode( ",", $mimetypes );
+			$parts[ 'mimetypes' ] = 'mimetypes:' . implode( ",", $mimetypes );
 		}
 		
 		if( array_key_exists( 'not_in', $fieldRules ) ) {
 			$notIn = $fieldRules[ 'not_in' ];
-			$parts[ 'not_in' ] = implode( ",", $notIn );
+			$parts[ 'not_in' ] = 'not_in:' . implode( ",", $notIn );
 		}
 		
 		if( array_key_exists( 'required_if', $fieldRules ) ) {
 			$requiredIf = $fieldRules[ 'required_if' ];
-			$parts[ 'required_if' ] = implode( ",", $requiredIf );
+			$parts[ 'required_if' ] = 'required_if:' . implode( ",", $requiredIf );
 		}
 		
 		if( array_key_exists( 'required_unless', $fieldRules ) ) {
 			$requiredUnless = $fieldRules[ 'required_unless' ];
-			$parts[ 'required_unless' ] = implode( ",", $requiredUnless );
+			$parts[ 'required_unless' ] = 'required_unless:' . implode( ",", $requiredUnless );
 		}
 		
 		if( array_key_exists( 'required_with', $fieldRules ) ) {
 			$requiredWith = $fieldRules[ 'required_with' ];
-			$parts[ 'required_with' ] = implode( ",", $requiredWith );
+			$parts[ 'required_with' ] = 'required_with:' . implode( ",", $requiredWith );
 		}
 		
 		if( array_key_exists( 'required_with_all', $fieldRules ) ) {
 			$requiredWithAll = $fieldRules[ 'required_with_all' ];
-			$parts[ 'required_with_all' ] = implode( ",", $requiredWithAll );
+			$parts[ 'required_with_all' ] = 'required_with_all:' . implode( ",", $requiredWithAll );
 		}
 		
 		if( array_key_exists( 'unique', $fieldRules ) ) {
@@ -128,7 +128,7 @@ class LaravelValidationService implements ValidationServiceContract {
 				}
 			}
 			
-			$parts[ 'unique' ] = $value;
+			$parts[ 'unique' ] = 'unique:' . $value;
 		}
 		
 		return implode( $parts, '|' );
