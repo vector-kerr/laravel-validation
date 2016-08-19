@@ -126,6 +126,7 @@ class LaravelValidationService implements ValidationServiceContract {
 						$value .= "," . $unique[ 'where_key' ] . "," . $unique[ 'where_value' ];
 					}
 				}
+			}
 			
 			$parts[ 'unique' ] = $value;
 		}
