@@ -1,7 +1,8 @@
 # Laravel Validation
 
 This package provides validation utilities for Laravel.
-The utilities are intended to be generic and expandable, allowing the validation system to suit many validation systems.
+The utilities are intended to be generic and expandable, allowing the same set of validation
+rules to be reused between different systems.
 
 ## Installation
 
@@ -64,15 +65,8 @@ class ValidationController extends Controller
 	public function __construct() {
 		$this->validation =
 			Validation::make()
-				->field( 'name' )
-					->isRequired()
-					->isString()
-					->hasMin( 4 )
-					->hasMax( 16 )
-				->field( 'age' )
-					->isInteger()
-					->hasMin( 0 )
-					->hasMax( 120 );
+				->field( 'name' )->isRequired()->isString()->hasMin( 4 )->hasMax( 16 )
+				->field( 'age' )->isInteger()->hasMin( 0 )->hasMax( 120 );
 	}
 	
 	public function angular() {
@@ -88,10 +82,9 @@ class ValidationController extends Controller
 	}
 	
 	public function validator() {
-        $validator = Validator::make(
-			[ 'name' => 'Jon', 'age' => 148.7 ],
-			$this->validation->rules() );
-		
+		$data = [ 'name' => 'Jon', 'age' => 148.7 ];
+		$rules = $this->validation->rules();
+        $validator = Validator::make( $data, $rules );
 		return $validator->errors();
 	}
 }
